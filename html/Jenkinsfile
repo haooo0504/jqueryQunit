@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // 从版本控制系统中检出代码
+                git 'https://github.com/your-repo/your-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // 构建Docker镜像
+                    docker.build('your-image-name')
+                }
+            }
+        }
+
+        stage('Run QUnit Tests') {
+            steps {
+                script {
+                    docker.image('your-image-name').inside {
+                        sh 'npm install' // 安装依赖
+                        sh 'npm test' // 运行QUnit测试
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression {
+                    // 只有当上一个步骤的测试成功时才执行部署
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                script {
+                    // 部署步骤
+                    docker.image('your-image-name').inside {
+                        sh 'your-deploy-script.sh'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // 清理Docker容器和镜像
+            cleanWs()
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "jqueryqunit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "qunit "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qunit": "^2.21.1",
+    "qunit-dom": "^3.2.0"
+  },
+  "devDependencies": {
+    "jquery": "^3.7.1",
+    "jsdom": "^24.1.1"
+  }
+}
