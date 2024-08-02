@@ -17,10 +17,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // 構建 Docker 映像，假設 Dockerfile 在倉庫根目錄下
-                    docker.withTool("${DOCKER_TOOL_NAME}") {
-                        docker.build("${IMAGE_NAME}", '.')
-                    }
+                    // 構建 Docker 映像
+                    sh 'docker build -t ${IMAGE_NAME} .'
                 }
             }
         }
@@ -28,12 +26,9 @@ pipeline {
         stage('Run QUnit Tests') {
             steps {
                 script {
-                    docker.withTool("${DOCKER_TOOL_NAME}") {
-                        docker.image("${IMAGE_NAME}").inside {
-                            sh 'npm install' // 安裝依賴
-                            sh 'npm test' // 運行 QUnit 測試
-                        }
-                    }
+                    // 運行 QUnit 測試
+                    sh 'docker run --rm ${IMAGE_NAME} npm install'
+                    sh 'docker run --rm ${IMAGE_NAME} npm test'
                 }
             }
         }
