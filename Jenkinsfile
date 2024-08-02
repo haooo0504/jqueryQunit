@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        IMAGE_NAME = 'my-jqunit'
+        CONTAINER_NAME = 'jqunit'
+    }
 
     stages {
         stage('Checkout') {
@@ -13,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // 構建 Docker 映像，假設 Dockerfile 在倉庫根目錄下
-                    docker.build('jquery-qunit', '.')
+                    docker.build("${IMAGE_NAME}", '.')
                 }
             }
         }
@@ -21,7 +25,7 @@ pipeline {
         stage('Run QUnit Tests') {
             steps {
                 script {
-                    docker.image('jquery-qunit').inside {
+                    docker.image("${IMAGE_NAME}").inside {
                         sh 'npm install' // 安裝依賴
                         sh 'npm test' // 運行 QUnit 測試
                     }
