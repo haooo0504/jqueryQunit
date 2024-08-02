@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        DOCKER_TOOL_NAME = 'docker'
         IMAGE_NAME = 'my-jqunit'
         CONTAINER_NAME = 'jqunit'
     }
@@ -17,7 +18,9 @@ pipeline {
             steps {
                 script {
                     // 構建 Docker 映像，假設 Dockerfile 在倉庫根目錄下
-                    docker.build("${IMAGE_NAME}", '.')
+                    docker.withTool("${DOCKER_TOOL_NAME}") {
+                        docker.build("${IMAGE_NAME}", '.')
+                    }
                 }
             }
         }
@@ -25,9 +28,11 @@ pipeline {
         stage('Run QUnit Tests') {
             steps {
                 script {
-                    docker.image("${IMAGE_NAME}").inside {
-                        sh 'npm install' // 安裝依賴
-                        sh 'npm test' // 運行 QUnit 測試
+                    docker.withTool("${DOCKER_TOOL_NAME}") {
+                        docker.image("${IMAGE_NAME}").inside {
+                            sh 'npm install' // 安裝依賴
+                            sh 'npm test' // 運行 QUnit 測試
+                        }
                     }
                 }
             }
