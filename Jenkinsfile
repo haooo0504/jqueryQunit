@@ -4,16 +4,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // 从版本控制系统中检出代码
-                git 'https://github.com/your-repo/your-project.git'
+                // 從版本控制系統中檢出代碼
+                git 'https://github.com/haooo0504/jqueryQunit.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // 构建Docker镜像
-                    docker.build('your-image-name')
+                    // 構建 Docker 映像，假設 Dockerfile 在倉庫根目錄下
+                    docker.build('jquery-qunit', '.')
                 }
             }
         }
@@ -21,9 +21,9 @@ pipeline {
         stage('Run QUnit Tests') {
             steps {
                 script {
-                    docker.image('your-image-name').inside {
-                        sh 'npm install' // 安装依赖
-                        sh 'npm test' // 运行QUnit测试
+                    docker.image('jquery-qunit').inside {
+                        sh 'npm install' // 安裝依賴
+                        sh 'npm test' // 運行 QUnit 測試
                     }
                 }
             }
@@ -32,16 +32,16 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    // 只有当上一个步骤的测试成功时才执行部署
+                    // 只有當上一步驟的測試成功時才執行部署
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
                 }
             }
             steps {
                 script {
-                    // 部署步骤
-                    docker.image('your-image-name').inside {
-                        sh 'your-deploy-script.sh'
-                    }
+                    // 確保 deploy.sh 有執行權限
+                    sh 'chmod +x deploy.sh'
+                    // 執行部署腳本
+                    sh './deploy.sh'
                 }
             }
         }
@@ -49,7 +49,7 @@ pipeline {
 
     post {
         always {
-            // 清理Docker容器和镜像
+            // 清理工作區
             cleanWs()
         }
     }
