@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // 從版本控制系統中檢出代碼
-                git 'https://github.com/haooo0504/jqueryQunit.git'
+                git 'https://github.com/haooo0504/jqueryQunit.git', branch: 'master'
             }
         }
 
