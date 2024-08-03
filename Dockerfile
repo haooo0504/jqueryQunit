@@ -16,7 +16,7 @@ COPY html/test/* ./test/
 RUN npm install
 
 # 複製 HTML 文件到 nginx 預設服務目錄
-COPY ./html /usr/share/nginx/html
+COPY ./html/ /usr/share/nginx/html
 
 # 將 nginx 的默認配置文件替換為自定義配置
 # COPY ./nginx.conf /etc/nginx/nginx.conf
