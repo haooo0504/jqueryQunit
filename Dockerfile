@@ -4,6 +4,18 @@ FROM node:14-alpine
 # 安裝 nginx
 RUN apk add --no-cache nginx
 
+# 設置工作目錄
+WORKDIR /usr/src/app
+
+# 複製 package.json 和 package-lock.json
+COPY package*.json ./
+
+# 安裝項目依賴
+RUN npm install
+
+# 複製應用程序代碼
+COPY . .
+
 # 複製 HTML 文件到 nginx 預設服務目錄
 COPY ./html /usr/share/nginx/html
 
