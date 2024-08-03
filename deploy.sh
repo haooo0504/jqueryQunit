@@ -27,9 +27,9 @@ docker run -d --name ${CONTAINER_NAME} -p 8085:80 ${IMAGE_NAME}
 echo "正在將新的 Nginx 配置複製到 Docker 容器..."
 docker cp $NGINX_CONF_SOURCE $CONTAINER_NAME:$TARGET_NGINX_CONF
 
-# 重新設定 Docker 容器中的 Nginx 配置
-echo "正在重新設定 Docker 容器中的 Nginx 配置..."
-docker exec ${CONTAINER_NAME} sh -c 'rm /etc/nginx/nginx.conf && cp /usr/share/nginx/html/nginx.conf /etc/nginx/nginx.conf'
+# # 重新設定 Docker 容器中的 Nginx 配置
+# echo "正在重新設定 Docker 容器中的 Nginx 配置..."
+# docker exec ${CONTAINER_NAME} sh -c 'rm /etc/nginx/nginx.conf && cp /usr/share/nginx/html/nginx.conf /etc/nginx/nginx.conf'
 
 # 在容器中測試 Nginx 配置
 echo "正在測試 Docker 容器中的 Nginx 配置..."
