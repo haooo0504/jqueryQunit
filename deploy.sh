@@ -23,16 +23,16 @@ docker run -d --name ${CONTAINER_NAME} -p 8085:80 ${IMAGE_NAME}
 # echo "正在將新的 HTML 檔案複製到 Docker 容器..."
 # docker cp $HTML_SOURCE_DIR/. $CONTAINER_NAME:$TARGET_HTML_DIR
 
-# # 複製新的 Nginx 配置檔案到 Docker 容器
-# echo "正在將新的 Nginx 配置複製到 Docker 容器..."
-# docker cp $NGINX_CONF_SOURCE $CONTAINER_NAME:$TARGET_NGINX_CONF
+# 複製新的 Nginx 配置檔案到 Docker 容器
+echo "正在將新的 Nginx 配置複製到 Docker 容器..."
+docker cp $NGINX_CONF_SOURCE $CONTAINER_NAME:$TARGET_NGINX_CONF
 
-# # 在容器中測試 Nginx 配置
-# echo "正在測試 Docker 容器中的 Nginx 配置..."
-# docker exec $CONTAINER_NAME nginx -t
+# 在容器中測試 Nginx 配置
+echo "正在測試 Docker 容器中的 Nginx 配置..."
+docker exec $CONTAINER_NAME nginx -t
 
-# # 在容器中重新加載 Nginx 服務
-# echo "正在重新加載 Docker 容器中的 Nginx 服務..."
-# docker exec $CONTAINER_NAME nginx -s reload
+# 在容器中重新加載 Nginx 服務
+echo "正在重新加載 Docker 容器中的 Nginx 服務..."
+docker exec $CONTAINER_NAME nginx -s reload
 
 echo "部署成功完成。"
