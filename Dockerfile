@@ -5,10 +5,10 @@ FROM node:14-alpine
 RUN apk add --no-cache nginx
 
 # 設置工作目錄
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/test
 
-# 複製 package.json 和 package-lock.json
-COPY package*.json ./
+# 複製 package.json 和 package-lock.json（如果有）
+COPY test/package*.json ./
 
 # 安裝項目依賴
 RUN npm install
