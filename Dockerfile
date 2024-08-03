@@ -10,6 +10,8 @@ WORKDIR /usr/src/app/html
 # 複製 package.json 和 package-lock.json（如果有）
 COPY html/* ./
 
+COPY nginx.conf ./
+
 COPY html/test/* ./test/
 
 # 安裝項目依賴
