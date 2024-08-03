@@ -1,5 +1,5 @@
 # 使用 Node.js 作為基礎映像
-FROM node:14-alpine
+FROM node:16-alpine
 
 # 安裝 nginx
 RUN apk add --no-cache nginx
