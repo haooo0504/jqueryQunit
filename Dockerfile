@@ -25,4 +25,4 @@ COPY ./html/ /usr/share/nginx/html
 EXPOSE 80
 
 # 啟動 nginx 並保持容器運行
-CMD ["sh", "-c", "nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]
