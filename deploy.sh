@@ -27,21 +27,21 @@ docker run -d --name ${CONTAINER_NAME} -p 8085:80 ${IMAGE_NAME}
 echo "正在將新的 Nginx 配置複製到 Docker 容器..."
 docker cp $NGINX_CONF_SOURCE $CONTAINER_NAME:$TARGET_NGINX_CONF
 
-# 創建 /etc/nginx/conf.d/ 目錄並添加 default.conf 配置文件
-echo "創建 /etc/nginx/conf.d/ 目錄並添加 default.conf 配置文件..."
-docker exec ${CONTAINER_NAME} sh -c 'mkdir -p /etc/nginx/conf.d && cat <<EOL > /etc/nginx/conf.d/default.conf
-server {
-    listen 80;
-    server_name localhost;
+# # 創建 /etc/nginx/conf.d/ 目錄並添加 default.conf 配置文件
+# echo "創建 /etc/nginx/conf.d/ 目錄並添加 default.conf 配置文件..."
+# docker exec ${CONTAINER_NAME} sh -c 'mkdir -p /etc/nginx/conf.d && cat <<EOL > /etc/nginx/conf.d/default.conf
+# server {
+#     listen 80;
+#     server_name localhost;
 
-    root /usr/share/nginx/html;
-    index index.html;
+#     root /usr/share/nginx/html;
+#     index index.html;
 
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOL'
+#     location / {
+#         try_files \$uri \$uri/ =404;
+#     }
+# }
+# EOL'
 
 # 在容器中測試 Nginx 配置
 echo "正在測試 Docker 容器中的 Nginx 配置..."
