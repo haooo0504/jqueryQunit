@@ -23,6 +23,9 @@ COPY html/ /usr/share/nginx/html
 # 將 nginx 的默認配置文件替換為自定義配置
 COPY nginx.conf /etc/nginx/nginx.conf
 
+# 複製 default.conf 文件到 /etc/nginx/conf.d 目錄
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 # 暴露端口
 EXPOSE 80
 
