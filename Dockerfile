@@ -7,14 +7,11 @@ RUN apk add --no-cache nginx
 # 設置工作目錄
 WORKDIR /usr/src/app/html
 
-# 複製 package.json 和 package-lock.json（如果有）
-COPY html/package*.json ./
+# 複製應用程序代碼
+COPY . .
 
 # 安裝項目依賴
 RUN npm install
-
-# 複製應用程序代碼
-COPY . .
 
 # 複製 HTML 文件到 nginx 預設服務目錄
 COPY ./html /usr/share/nginx/html
