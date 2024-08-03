@@ -19,7 +19,7 @@ RUN npm install
 COPY ./html/ /usr/share/nginx/html
 
 # 將 nginx 的默認配置文件替換為自定義配置
-# COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # 暴露端口
 EXPOSE 80
