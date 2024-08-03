@@ -15,14 +15,17 @@ COPY html/test/* ./test/
 # 安裝項目依賴
 RUN npm install
 
-# 複製 HTML 文件到 nginx 預設服務目錄
-COPY ./html/ /usr/share/nginx/html
+# 使用官方的 Nginx 映像作為基礎映像
+FROM nginx:alpine
 
-# 將 nginx 的默認配置文件替換為自定義配置
-# COPY ./nginx.conf /etc/nginx/nginx.conf
+# 將 Nginx 配置文件複製到容器中的 Nginx 配置目錄
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 暴露端口
+# 將你的 jQuery 文件和資源文件複製到 Nginx 的默認根目錄
+COPY html/ /usr/share/nginx/html
+
+# 暴露容器的 80 端口
 EXPOSE 80
 
-# 啟動 nginx 並保持容器運行
+# 啟動 Nginx
 CMD ["nginx", "-g", "daemon off;"]
