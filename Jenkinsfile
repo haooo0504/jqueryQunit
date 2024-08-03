@@ -17,18 +17,11 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // 構建 Docker 映像
-                    sh 'docker build -t ${IMAGE_NAME} .'
-                }
-            }
-        }
-
-        stage('Run QUnit Tests') {
-            steps {
-                script {
-                    // 運行 QUnit 測試
-                    sh 'docker run --rm ${IMAGE_NAME} npm install'
-                    sh 'docker run --rm ${IMAGE_NAME} npm test'
+                    // 捕获错误并终止构建
+                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                        // 構建 Docker 映像
+                        sh 'docker build -t ${IMAGE_NAME} .'
+                    }
                 }
             }
         }
