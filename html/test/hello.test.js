@@ -13,7 +13,7 @@ const $ = require("jquery")(window);
 
 QUnit.module("jQuery Example", function () {
   QUnit.test("測試class為hello的元素的text", function (assert) {
-    var titleText = $(".title").text();
+    var titleText = $(".hello").text();
     assert.equal(titleText, "hellopage", "元素的text應該為'hellopage'");
   });
 
