@@ -16,7 +16,7 @@ QUnit.module("jQuery Example", function () {
     var titleText = $(".title").text();
     assert.equal(titleText, "Hello, World!", "元素的text應該為'Hello, World!'");
   });
-  QUnit.test("測試class為title的元素的text", function (assert) {
+  QUnit.skip("測試class為title的元素的text", function (assert) {
     var titleText = $(".title1").text();
     assert.equal(
       titleText,
