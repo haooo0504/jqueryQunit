@@ -16,7 +16,7 @@ COPY html/test/* ./test/
 RUN npm install
 
 # 運行 QUnit 測試並在失敗時終止構建
-RUN npm test
+RUN npm test && echo "Tests passed" || (echo "Tests failed" && exit 1)
 
 # 第二階段: 生成生產環境鏡像
 FROM nginx:latest
