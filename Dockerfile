@@ -22,8 +22,7 @@ RUN npm test && echo "Tests passed" || (echo "Tests failed" && exit 1)
 FROM nginx:latest
 
 # 從第一階段複製靜態文件到 Nginx 預設的靜態文件服務目錄
-# COPY --from=builder /usr/src/app/html /usr/share/nginx/html
-COPY html /usr/share/nginx/html
+COPY --from=builder /usr/src/app/html /usr/share/nginx/html
 
 # 複製 default.conf 文件到 /etc/nginx/conf.d 目錄
 COPY default.conf /etc/nginx/conf.d/default.conf
